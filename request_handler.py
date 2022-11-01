@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
+from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
 from views.user import create_user, login_user
 
 
@@ -74,7 +75,10 @@ class HandleRequests(BaseHTTPRequestHandler):
             elif resource == 'categories':
                 pass
             elif resource == 'subscriptions':
-                pass
+                if id is not None:
+                    response = f"{get_single_subscription(id)}"
+                else:
+                    response = f"{get_all_subscriptions()}"
             elif resource == 'tags':
                 pass
             elif resource == 'postags':
@@ -97,7 +101,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'posts':
             response = create_post(post_body)
         elif resource == 'subscriptions':
-            response = create_post(post_body)
+            response = create_subscription(post_body)
         elif resource == 'comments':
             pass
         elif resource == 'reactions':
@@ -135,7 +139,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'categories':
             pass
         elif resource == 'subscriptions':
-            pass
+            success = update_subscription(id, post_body)
         elif resource == 'tags':
             pass
         elif resource == 'postags':
@@ -166,7 +170,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'categories':
             pass
         elif resource == 'subscriptions':
-            pass
+            delete_subscription(id)
         elif resource == 'tags':
             pass
         elif resource == 'postags':
