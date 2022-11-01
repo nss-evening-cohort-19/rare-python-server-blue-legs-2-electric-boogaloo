@@ -65,7 +65,21 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_post(id)}"
                 else:
                     response = f"{get_all_posts()}"
-        
+            elif resource == 'comments':
+                pass
+            elif resource == 'reactions':
+                pass
+            elif resource == 'postreactions':
+                pass
+            elif resource == 'categories':
+                pass
+            elif resource == 'subscriptions':
+                pass
+            elif resource == 'tags':
+                pass
+            elif resource == 'postags':
+                pass
+ 
         self.wfile.write(response.encode())
         
     def do_POST(self):
@@ -84,7 +98,18 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_post(post_body)
         elif resource == 'subscriptions':
             response = create_post(post_body)
-
+        elif resource == 'comments':
+            pass
+        elif resource == 'reactions':
+            pass
+        elif resource == 'postreactions':
+            pass
+        elif resource == 'categories':
+            pass
+        elif resource == 'tags':
+            pass
+        elif resource == 'postags':
+            pass
 
         self.wfile.write(response.encode())
 
@@ -101,8 +126,22 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if resource == "posts":
             success = update_post(id, post_body)
-        # rest of the elif's
+        elif resource == 'comments':
+            pass
+        elif resource == 'reactions':
+            pass
+        elif resource == 'postreactions':
+            pass
+        elif resource == 'categories':
+            pass
+        elif resource == 'subscriptions':
+            pass
+        elif resource == 'tags':
+            pass
+        elif resource == 'postags':
+            pass
 
+        
         if success:
             self._set_headers(204)
         else:
@@ -118,6 +157,20 @@ class HandleRequests(BaseHTTPRequestHandler):
         
         if resource == "posts":
             delete_post(id)
+        elif resource == 'comments':
+            pass
+        elif resource == 'reactions':
+            pass
+        elif resource == 'postreactions':
+            pass
+        elif resource == 'categories':
+            pass
+        elif resource == 'subscriptions':
+            pass
+        elif resource == 'tags':
+            pass
+        elif resource == 'postags':
+            pass
             
         self.wfile.write("".encode())
 
