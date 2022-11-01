@@ -89,7 +89,7 @@ def get_all_post_reactions():
             pr.id,
             pr.user_id,
             pr.reaction_id,
-            pr.post_id,
+            pr.post_id
         FROM PostReactions pr
         """)
         

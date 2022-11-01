@@ -86,7 +86,7 @@ def get_all_reactions():
         SELECT
             r.id,
             r.label,
-            r.image_url,
+            r.image_url
         FROM reactions r
         """)
         
