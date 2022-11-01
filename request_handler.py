@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
+from views.tags_request import create_tag
 from views.user import create_user, login_user
 
 
@@ -76,7 +77,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             elif resource == 'subscriptions':
                 pass
             elif resource == 'tags':
-                pass
+                if id is not None:
+                    pass
             elif resource == 'postags':
                 pass
  
@@ -107,7 +109,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'subscriptions':
             pass
         elif resource == 'tags':
-            pass
+            response = create_tag(post_body)
         elif resource == 'postags':
             pass
 
