@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
-from views.tags_request import create_tag
+from views.tags_request import create_tag, delete_tag, get_all_tags, get_single_tag, update_tag
 from views.user import create_user, login_user
 
 
@@ -78,7 +78,9 @@ class HandleRequests(BaseHTTPRequestHandler):
                 pass
             elif resource == 'tags':
                 if id is not None:
-                    pass
+                    response = f"{get_single_tag(id)}"
+                else:
+                    response = f"{get_all_tags()}"
             elif resource == 'postags':
                 pass
  
@@ -139,7 +141,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'subscriptions':
             pass
         elif resource == 'tags':
-            pass
+            success = update_tag(id, post_body)
         elif resource == 'postags':
             pass
 
@@ -170,7 +172,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'subscriptions':
             pass
         elif resource == 'tags':
-            pass
+            delete_tag(id)
         elif resource == 'postags':
             pass
             
