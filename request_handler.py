@@ -82,6 +82,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_user(post_body)
         elif resource == 'posts':
             response = create_post(post_body)
+        elif resource == 'subscriptions':
+            response = create_post(post_body)
 
 
         self.wfile.write(response.encode())
