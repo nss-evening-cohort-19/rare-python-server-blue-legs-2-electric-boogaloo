@@ -21,3 +21,4 @@ def create_comment(new_comment):
         new_comment['id'] = comment_id
     
     return json.dumps(new_comment)
+  
