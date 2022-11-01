@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views.post_request import create_post, get_all_posts, update_post
+from views.post_request import create_post, delete_post, get_all_posts, update_post
 from views.user import create_user, login_user
 
 
@@ -110,7 +110,14 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_DELETE(self):
         """Handle DELETE Requests"""
-        pass
+        self._set_headers(204)
+        
+        (resource, id) = self.parse_url()
+        
+        if resource == "posts":
+            delete_post(id)
+            
+        self.wfile.write("".encode())
 
 
 def main():
