@@ -33,7 +33,7 @@ def get_single_category(id):
         SELECT
             c.id,
             c.label
-        FROM category c
+        FROM categories c
         WHERE c.id = ?
         """, ( id, ))
 
@@ -75,10 +75,9 @@ def update_category(id, new_category):
         db_cursor.execute("""
         UPDATE categories
             SET
-                id = ?,
                 label = ?
         WHERE id = ?
-        """, (new_category['id'], new_category['label'], id, ))
+        """, (new_category['label'], id, ))
 
         # Were any rows affected?
         # Did the client send an `id` that exists?
