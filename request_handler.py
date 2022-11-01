@@ -1,8 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from multiprocessing import resource_sharer
-import re
-from views.post_request import create_post, delete_post, get_all_posts, update_post
+from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
 from views.user import create_user, login_user
 
 
@@ -64,7 +62,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             
             if resource == 'posts':
                 if id is not None:
-                    pass
+                    response = f"{get_single_post(id)}"
                 else:
                     response = f"{get_all_posts()}"
             elif resource == 'comments':
