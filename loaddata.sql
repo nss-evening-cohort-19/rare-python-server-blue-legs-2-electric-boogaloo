@@ -85,6 +85,10 @@ CREATE TABLE "Categories" (
   "label" varchar
 );
 
+
 INSERT INTO Categories ('label') VALUES ('News');
 INSERT INTO Tags ('label') VALUES ('JavaScript');
 INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
+
+
+INSERT INTO Posts VALUES (null, 1, 3, "Test Title 2", "10/33/2022", "https://res.cloudinary.com/twofiveclimb/image/upload/v1666979419/mad-app/e5sgpxaykaxqsls5kavg.jpg", "This is the second test.  Test Test Scary", True);
