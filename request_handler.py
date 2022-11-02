@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views.comment_requests import create_comment, delete_comment, get_all_comments, get_single_comment, update_comment
+from views.comment_requests import create_comment, delete_comment, get_all_comments, get_single_comment, update_comment, get_comments_by_author
 from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
 from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
 from views.category_requests import create_category, delete_category, get_all_categories, get_single_category, update_category
@@ -91,7 +91,11 @@ class HandleRequests(BaseHTTPRequestHandler):
                 pass
             elif resource == 'postags':
                 pass
- 
+        else:
+            (resource, key, value) = parsed
+            if key == 'author_id' and resource == 'comments':
+                 response = get_comments_by_author(value)
+                 
         self.wfile.write(response.encode())
         
     def do_POST(self):

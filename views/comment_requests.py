@@ -108,16 +108,16 @@ def get_comments_by_author(author_id):
         
         db_cursor.execute("""
         SELECT                  
-            c.id,
+            c.id comment_id,
             c.author_id,
             c.post_id,
             c.content,
-            u.first_name,
-            u.last_name
+            u.*
         FROM comments c
         JOIN users u
             ON c.author_id = u.id
-        """)
+        WHERE c.author_id = ?
+        """, (author_id, ))
         
         comments = []
         
@@ -125,13 +125,15 @@ def get_comments_by_author(author_id):
         
         for row in dataset:
            
-           comment = Comment(row['id'], row['author_id'], row['post_id'], row['content'])
+           comment = Comment(row['comment_id'], row['author_id'], row['post_id'], row['content'])
            
            author = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'])
            
-           comment.author = author.__dict__
+           comment_dict = comment.__dict__
            
-           comments.append(comment.__dict__)
+           comment_dict['author'] = author.first_last()
+           
+           comments.append(comment_dict)
            
     return json.dumps(comments)
            

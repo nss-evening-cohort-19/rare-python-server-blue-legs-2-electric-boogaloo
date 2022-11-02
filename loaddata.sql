@@ -110,3 +110,25 @@ INSERT INTO Categories VALUES (null, 'Coding');
 --         FROM comments c
 --         JOIN users u
 --             ON c.author_id = u.id
+
+-- SELECT                  
+--             c.id,
+--             c.author_id,
+--             c.post_id,
+--             c.content,
+--             u.first_name,
+--             u.last_name
+--         FROM comments c
+--         JOIN users u
+--             ON c.author_id = u.id
+--         WHERE c.author_id = 1
+SELECT                  
+            c.id comment_id,
+            c.author_id,
+            c.post_id,
+            c.content,
+            u.*
+        FROM comments c
+        JOIN users u
+            ON c.author_id = u.id
+        WHERE c.author_id = 1
