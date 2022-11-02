@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+from views.comment_requests import create_comment, delete_comment, get_all_comments, get_single_comment, update_comment
 from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
 from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
 from views.category_requests import create_category, delete_category, get_all_categories, get_single_category, update_category
@@ -70,7 +71,10 @@ class HandleRequests(BaseHTTPRequestHandler):
                 else:
                     response = f"{get_all_posts()}"
             elif resource == 'comments':
-                pass
+                if id is not None:
+                    response = f"{get_single_comment(id)}"
+                else:
+                    response = f"{get_all_comments()}"
             elif resource == 'reactions':
                 if id is not None:
                     response = f"{get_single_reaction(id)}"
@@ -115,7 +119,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'subscriptions':
             response = create_subscription(post_body)
         elif resource == 'comments':
-            pass
+            response = create_comment(post_body)
         elif resource == 'reactions':
             response = create_reaction(post_body)
         elif resource == 'postreactions':
@@ -145,7 +149,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "posts":
             success = update_post(id, post_body)
         elif resource == 'comments':
-            pass
+            success = update_comment(id, post_body)
         elif resource == 'reactions':
             success = update_reaction(id, post_body)
         elif resource == 'postreactions':
@@ -176,7 +180,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "posts":
             delete_post(id)
         elif resource == 'comments':
-            pass
+            delete_comment(id)
         elif resource == 'reactions':
             delete_reaction(id)
         elif resource == 'postreactions':

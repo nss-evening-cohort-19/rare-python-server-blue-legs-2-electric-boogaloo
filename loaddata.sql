@@ -93,7 +93,7 @@ INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.c
 
 INSERT INTO Subscriptions VALUES (null, 1, 1, "10/31/2022");
 INSERT INTO Posts VALUES (null, 1, 3, "Test Title 2", "10/33/2022", "https://res.cloudinary.com/twofiveclimb/image/upload/v1666979419/mad-app/e5sgpxaykaxqsls5kavg.jpg", "This is the second test.  Test Test Scary", True);
-INSERT INTO Comments VALUES (null, 1, 1, "This is delightful");
+INSERT INTO Comments VALUES (null, 2, 1, "This is also delightful");
 INSERT INTO Reactions VALUES (null, "Mad", 'https://pngtree.com/so/mad');
 INSERT INTO PostReactions VALUES (null, 1, 1, 1);
 INSERT INTO Tags VALUES (null, "Python");
@@ -116,3 +116,25 @@ FROM reactions r
 JOIN postreactions pr
   ON r.id = pr.reaction_id
 WHERE r.id = 6
+
+-- SELECT                  
+--             c.id,
+--             c.author_id,
+--             c.post_id,
+--             c.content,
+--             u.first_name,
+--             u.last_name
+--         FROM comments c
+--         JOIN users u
+--             ON c.author_id = u.id
+
+-- SELECT                  
+--             c.id,
+--             c.author_id,
+--             c.post_id,
+--             c.content,
+--             u.first_name,
+--             u.last_name
+--         FROM comments c
+--         JOIN users u
+--             ON c.author_id = u.id
