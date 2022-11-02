@@ -2,10 +2,14 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post, get_posts_by_category
 from views.comment_requests import create_comment, delete_comment, get_all_comments, get_single_comment, update_comment
+from views.post_tags_request import get_all_post_tags, get_single_post_tag
 from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
 from views.category_requests import create_category, delete_category, get_all_categories, get_single_category, update_category
 from views.user import create_user, login_user
-
+from views.tags_request import get_all_tags, get_single_tag, create_tag, update_tag, delete_tag
+from views.reaction_request import create_reaction, get_all_reactions, get_single_reaction, delete_reaction, update_reaction
+from views.post_reaction_request import create_post_reaction, delete_post_reaction, update_post_reaction, get_all_post_reactions, get_single_post_reaction
+from views.post_tags_request import create_post_tag, get_all_post_tags, get_single_post_tag, update_post_tag, delete_post_tag
 
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
@@ -74,9 +78,15 @@ class HandleRequests(BaseHTTPRequestHandler):
                 else:
                     response = f"{get_all_comments()}"
             elif resource == 'reactions':
-                pass
+                if id is not None:
+                    response = f"{get_single_reaction(id)}"
+                else:
+                    response = f"{get_all_reactions()}"
             elif resource == 'postreactions':
-                pass
+                if id is not None:
+                    response = f"{get_single_post_reaction(id)}"
+                else:
+                    response = f"{get_all_post_reactions()}"
             elif resource == 'categories':
                 if id is not None:
                     response = f"{get_single_category(id)}"
@@ -88,9 +98,16 @@ class HandleRequests(BaseHTTPRequestHandler):
                 else:
                     response = f"{get_all_subscriptions()}"
             elif resource == 'tags':
-                pass
-            elif resource == 'postags':
-                pass
+                if id is not None:
+                    response = f"{get_single_tag(id)}"
+                else:
+                    response = f"{get_all_tags()}"
+            elif resource == 'posttags':
+                if id is not None:
+                    response = f"{get_single_post_tag(id)}"
+                else:
+                    response = f"{get_all_post_tags()}"
+                    
         else:
             (resource, key, value) = parsed
 
@@ -118,17 +135,15 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'comments':
             response = create_comment(post_body)
         elif resource == 'reactions':
-            pass
+            response = create_reaction(post_body)
         elif resource == 'postreactions':
-            pass
+            response = create_post_reaction(post_body)
         elif resource == 'categories':
             response = create_category(post_body)
-        elif resource == 'subscriptions':
-            pass
         elif resource == 'tags':
-            pass
-        elif resource == 'postags':
-            pass
+            response = create_tag(post_body)
+        elif resource == 'posttags':
+            response = create_post_tag(post_body)
 
         self.wfile.write(response.encode())
 
@@ -148,17 +163,17 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'comments':
             success = update_comment(id, post_body)
         elif resource == 'reactions':
-            pass
+            success = update_reaction(id, post_body)
         elif resource == 'postreactions':
-            pass
+            success = update_post_reaction(id, post_body)
         elif resource == 'categories':
             success = update_category(id, post_body)
         elif resource == 'subscriptions':
             success = update_subscription(id, post_body)
         elif resource == 'tags':
-            pass
-        elif resource == 'postags':
-            pass
+            success = update_tag(id, post_body)
+        elif resource == 'posttags':
+            success = update_post_tag(id, post_body)
 
         
         if success:
@@ -179,17 +194,17 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'comments':
             delete_comment(id)
         elif resource == 'reactions':
-            pass
+            delete_reaction(id)
         elif resource == 'postreactions':
-            pass
+            delete_post_reaction(id)
         elif resource == 'categories':
             delete_category(id)
         elif resource == 'subscriptions':
             delete_subscription(id)
         elif resource == 'tags':
-            pass
-        elif resource == 'postags':
-            pass
+            delete_tag(id)
+        elif resource == 'posttags':
+            delete_post_tag(id)
             
         self.wfile.write("".encode())
 

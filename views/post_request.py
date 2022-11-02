@@ -147,3 +147,4 @@ def delete_post(id):
         DELETE FROM posts
         WHERE id = ?
         """, (id, ))
+        
