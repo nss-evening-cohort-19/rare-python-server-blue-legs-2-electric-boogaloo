@@ -7,7 +7,7 @@ def create_post_reaction(new_post_reaction):
     with sqlite3.connect('./db.sqlite3') as conn:
         db_cursor = conn.cursor()
         
-        db_cursor.execute(""""
+        db_cursor.execute("""
         INSERT INTO PostReactions
             (user_id, reaction_id, post_id)
         VALUES
