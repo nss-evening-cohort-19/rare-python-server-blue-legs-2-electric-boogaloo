@@ -100,35 +100,14 @@ INSERT INTO Tags VALUES (null, "Python");
 INSERT INTO PostTags VALUES (null, 1, 1);
 INSERT INTO Categories VALUES (null, 'Coding');
 
--- SELECT                  
---             c.id,
---             c.author_id,
---             c.post_id,
---             c.content,
---             u.first_name,
---             u.last_name
---         FROM comments c
---         JOIN users u
---             ON c.author_id = u.id
-
--- SELECT                  
---             c.id,
---             c.author_id,
---             c.post_id,
---             c.content,
---             u.first_name,
---             u.last_name
---         FROM comments c
---         JOIN users u
---             ON c.author_id = u.id
---         WHERE c.author_id = 1
-SELECT                  
-            c.id comment_id,
-            c.author_id,
-            c.post_id,
-            c.content,
-            u.*
-        FROM comments c
-        JOIN users u
-            ON c.author_id = u.id
-        WHERE c.author_id = 1
+SELECT
+      c.id,
+      c.id,
+      c.author_id,
+      c.post_id,
+      c.content
+FROM comments c
+JOIN posts p
+ON p.id = c.post_id
+WHERE c.post_id = 1
+        
