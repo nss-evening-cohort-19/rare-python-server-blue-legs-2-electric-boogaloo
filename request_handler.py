@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
+from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post, get_posts_by_category
 from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
 from views.category_requests import create_category, delete_category, get_all_categories, get_single_category, update_category
 from views.user import create_user, login_user
@@ -87,6 +87,11 @@ class HandleRequests(BaseHTTPRequestHandler):
                 pass
             elif resource == 'postags':
                 pass
+        else:
+            (resource, query) = parsed
+
+            if query.get('category_id') and resource == 'posts':
+                response = get_posts_by_category(query['category_id'][0])
  
         self.wfile.write(response.encode())
         
