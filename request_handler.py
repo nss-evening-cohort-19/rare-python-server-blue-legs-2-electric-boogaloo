@@ -5,9 +5,9 @@ from views.post_request import create_post, delete_post, get_all_posts, get_sing
 from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
 from views.category_requests import create_category, delete_category, get_all_categories, get_single_category, update_category
 from views.user import create_user, login_user
+from views.tags_request import get_all_tags, get_single_tag, create_tag, update_tag, delete_tag
 from views.reaction_request import create_reaction, get_all_reactions, get_single_reaction, delete_reaction, update_reaction
 from views.post_reaction_request import create_post_reaction, delete_post_reaction, update_post_reaction, get_all_post_reactions, get_single_post_reaction
-
 
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
@@ -96,7 +96,10 @@ class HandleRequests(BaseHTTPRequestHandler):
                 else:
                     response = f"{get_all_subscriptions()}"
             elif resource == 'tags':
-                pass
+                if id is not None:
+                    response = f"{get_single_tag(id)}"
+                else:
+                    response = f"{get_all_tags()}"
             elif resource == 'postags':
                 pass
  
@@ -129,7 +132,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'subscriptions':
             pass
         elif resource == 'tags':
-            pass
+            response = create_tag(post_body)
         elif resource == 'postags':
             pass
 
@@ -159,7 +162,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'subscriptions':
             success = update_subscription(id, post_body)
         elif resource == 'tags':
-            pass
+            success = update_tag(id, post_body)
         elif resource == 'postags':
             pass
 
@@ -190,7 +193,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'subscriptions':
             delete_subscription(id)
         elif resource == 'tags':
-            pass
+            delete_tag(id)
         elif resource == 'postags':
             pass
             
