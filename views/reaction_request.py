@@ -7,7 +7,7 @@ def create_reaction(new_reaction):
     with sqlite3.connect('./db.sqlite3') as conn:
         db_cursor = conn.cursor()
         
-        db_cursor.execute(""""
+        db_cursor.execute("""
         INSERT INTO Reactions
             (label, image_url)
         VALUES
@@ -67,13 +67,18 @@ def update_reaction(id, new_reaction):
 
 
 def delete_reaction(id):
-    """Delete a reaction"""
+    """Deletes a reaction and associated postReaction"""
     with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
         DELETE FROM reactions
         WHERE id = ?
+        """, (id, ))
+        
+        db_cursor.execute("""
+        DELETE FROM postreactions
+        WHERE reaction_id = ?
         """, (id, ))
 
 def get_all_reactions():

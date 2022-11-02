@@ -99,3 +99,20 @@ INSERT INTO PostReactions VALUES (null, 1, 1, 1);
 INSERT INTO Tags VALUES (null, "Python");
 INSERT INTO PostTags VALUES (null, 1, 1);
 INSERT INTO Categories VALUES (null, 'Coding');
+INSERT INTO PostReactions VALUES (null, 1, 3, 1);
+
+SELECT
+    r.id,
+    r.label,
+    r.image_url,
+    pr.id post_reaction_id,
+    pr.reaction_id reaction_id
+FROM reactions r
+JOIN postreactions pr
+    ON r.id = pr.reaction_id
+
+DELETE
+FROM reactions r
+JOIN postreactions pr
+  ON r.id = pr.reaction_id
+WHERE r.id = 6
