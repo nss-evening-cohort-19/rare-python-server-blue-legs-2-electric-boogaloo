@@ -95,11 +95,10 @@ def delete_tag(id):
 
         db_cursor.execute("""
         DELETE FROM tags
-        WHERE tags.id IN (
-            SELECT t.ROWID FROM tags t
-            INNER JOIN posttags p
-                ON (t.id=p.tag_id)
-            WHERE t.id = p.tag_id
-            );
         WHERE id = ?
+        """, (id, ))
+        
+        db_cursor.execute("""
+        DELETE FROM posttags
+        WHERE tag_id = ?
         """, (id, ))

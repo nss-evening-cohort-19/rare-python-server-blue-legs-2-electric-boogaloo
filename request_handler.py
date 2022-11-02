@@ -5,7 +5,7 @@ from views.post_request import create_post, delete_post, get_all_posts, get_sing
 from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
 from views.category_requests import create_category, delete_category, get_all_categories, get_single_category, update_category
 from views.user import create_user, login_user
-
+from views.tags_request import get_all_tags, get_single_tag, create_tag, update_tag, delete_tag
 
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
