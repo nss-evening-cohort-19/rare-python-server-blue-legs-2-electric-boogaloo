@@ -99,3 +99,5 @@ INSERT INTO PostReactions VALUES (null, 1, 1, 1);
 INSERT INTO Tags VALUES (null, "Python");
 INSERT INTO PostTags VALUES (null, 1, 1);
 INSERT INTO Categories VALUES (null, 'Coding');
+INSERT INTO PostReactions VALUES (null, 1, 2, 2);
+INSERT INTO Reactions VALUES (null, "Sad", 'https://pngtree.com/so/mad');
