@@ -7,7 +7,7 @@ from views.category_requests import create_category, delete_category, get_all_ca
 from views.user import create_user, login_user
 from views.tags_request import get_all_tags, get_single_tag, create_tag, update_tag, delete_tag
 from views.reaction_request import create_reaction, get_all_reactions, get_single_reaction, delete_reaction, update_reaction
-from views.post_reaction_request import create_post_reaction, delete_post_reaction, update_post_reaction, get_all_post_reactions, get_single_post_reaction
+from views.post_reaction_request import create_post_reaction, delete_post_reaction, update_post_reaction, get_all_post_reactions, get_single_post_reaction, get_post_reactions_by_post_id
 
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
@@ -102,6 +102,12 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_all_tags()}"
             elif resource == 'postags':
                 pass
+            
+        else:
+            (resource, key, value) = parsed
+            
+            if key == "post_id" and resource == "postreactions":
+                response = get_post_reactions_by_post_id(value)
  
         self.wfile.write(response.encode())
         
