@@ -1,7 +1,9 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+from views.comment_requests import create_comment, delete_comment, get_all_comments, get_single_comment, update_comment
 from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
-from views.tags_request import create_tag, delete_tag, get_all_tags, get_single_tag, update_tag
+from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
+from views.category_requests import create_category, delete_category, get_all_categories, get_single_category, update_category
 from views.user import create_user, login_user
 
 
@@ -67,15 +69,24 @@ class HandleRequests(BaseHTTPRequestHandler):
                 else:
                     response = f"{get_all_posts()}"
             elif resource == 'comments':
-                pass
+                if id is not None:
+                    response = f"{get_single_comment(id)}"
+                else:
+                    response = f"{get_all_comments()}"
             elif resource == 'reactions':
                 pass
             elif resource == 'postreactions':
                 pass
             elif resource == 'categories':
-                pass
+                if id is not None:
+                    response = f"{get_single_category(id)}"
+                else:
+                    response = f"{get_all_categories()}"
             elif resource == 'subscriptions':
-                pass
+                if id is not None:
+                    response = f"{get_single_subscription(id)}"
+                else:
+                    response = f"{get_all_subscriptions()}"
             elif resource == 'tags':
                 if id is not None:
                     response = f"{get_single_tag(id)}"
@@ -100,14 +111,16 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_user(post_body)
         elif resource == 'posts':
             response = create_post(post_body)
+        elif resource == 'subscriptions':
+            response = create_subscription(post_body)
         elif resource == 'comments':
-            pass
+            response = create_comment(post_body)
         elif resource == 'reactions':
             pass
         elif resource == 'postreactions':
             pass
         elif resource == 'categories':
-            pass
+            response = create_category(post_body)
         elif resource == 'subscriptions':
             pass
         elif resource == 'tags':
@@ -131,15 +144,15 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "posts":
             success = update_post(id, post_body)
         elif resource == 'comments':
-            pass
+            success = update_comment(id, post_body)
         elif resource == 'reactions':
             pass
         elif resource == 'postreactions':
             pass
         elif resource == 'categories':
-            pass
+            success = update_category(id, post_body)
         elif resource == 'subscriptions':
-            pass
+            success = update_subscription(id, post_body)
         elif resource == 'tags':
             success = update_tag(id, post_body)
         elif resource == 'postags':
@@ -162,15 +175,15 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "posts":
             delete_post(id)
         elif resource == 'comments':
-            pass
+            delete_comment(id)
         elif resource == 'reactions':
             pass
         elif resource == 'postreactions':
             pass
         elif resource == 'categories':
-            pass
+            delete_category(id)
         elif resource == 'subscriptions':
-            pass
+            delete_subscription(id)
         elif resource == 'tags':
             delete_tag(id)
         elif resource == 'postags':
