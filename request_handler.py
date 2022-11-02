@@ -92,10 +92,10 @@ class HandleRequests(BaseHTTPRequestHandler):
             elif resource == 'postags':
                 pass
         else:
-            (resource, query) = parsed
+            (resource, key, value) = parsed
 
-            if query.get('category_id') and resource == 'posts':
-                response = get_posts_by_category(query['category_id'][0])
+            if key == 'category_id' and resource == 'posts':
+                response = get_posts_by_category(value)
  
         self.wfile.write(response.encode())
         

@@ -81,7 +81,7 @@ def get_all_posts():
 
 def get_posts_by_category(category_id):
     """gets posts by category"""
-    with sqlite3.connect("./kennel.sqlite3") as conn:
+    with sqlite3.connect("./db.sqlite3") as conn:
         conn.row_factory = sqlite3.Row
         db_cursor = conn.cursor()
 
@@ -96,7 +96,7 @@ def get_posts_by_category(category_id):
             p.image_url,
             p.content,
             p.approved
-        FROM posts p
+        FROM Posts p
         WHERE p.category_id = ?
         """, ( category_id, ))
 
