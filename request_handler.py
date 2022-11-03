@@ -1,8 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from models import post
+from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post, get_posts_by_category
 from views.comment_requests import create_comment, delete_comment, get_all_comments, get_single_comment, update_comment
-from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
 from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
 from views.category_requests import create_category, delete_category, get_all_categories, get_single_category, update_category
 from views.user import create_user, login_user
@@ -10,7 +9,6 @@ from views.tags_request import get_all_tags, get_single_tag, create_tag, update_
 from views.reaction_request import create_reaction, get_all_reactions, get_single_reaction, delete_reaction, update_reaction
 from views.post_reaction_request import create_post_reaction, delete_post_reaction, update_post_reaction, get_all_post_reactions, get_single_post_reaction, get_post_reactions_by_post_id
 from views.post_tags_request import create_post_tag, get_all_post_tags, get_single_post_tag, update_post_tag, delete_post_tag
-
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
 
@@ -107,11 +105,14 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_post_tag(id)}"
                 else:
                     response = f"{get_all_post_tags()}"
-            
+                    
         else:
             (resource, key, value) = parsed
+
+            if key == 'category_id' and resource == 'posts':
+                response = get_posts_by_category(value)
             
-            if key == "post_id" and resource == "postreactions":
+            elif key == "post_id" and resource == "postreactions":
                 response = get_post_reactions_by_post_id(value)
  
         self.wfile.write(response.encode())
