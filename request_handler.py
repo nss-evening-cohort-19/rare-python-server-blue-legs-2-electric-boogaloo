@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post, get_posts_by_category
+from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post, get_posts_by_category, get_posts_by_author_id
 from views.comment_requests import create_comment, delete_comment, get_all_comments, get_single_comment, update_comment
 from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
 from views.category_requests import create_category, delete_category, get_all_categories, get_single_category, update_category
@@ -114,6 +114,9 @@ class HandleRequests(BaseHTTPRequestHandler):
             
             elif key == "post_id" and resource == "postreactions":
                 response = get_post_reactions_by_post_id(value)
+                
+            elif key == "author_id" and resource == "posts":
+                response = get_posts_by_author_id(value)
  
         self.wfile.write(response.encode())
         
