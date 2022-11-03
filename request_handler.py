@@ -1,11 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-<<<<<<< HEAD
 from views.comment_requests import create_comment, delete_comment, get_all_comments, get_single_comment, update_comment, get_comments_by_author, get_comments_by_post
-=======
 from models import post
-from views.comment_requests import create_comment, delete_comment, get_all_comments, get_single_comment, update_comment
->>>>>>> development
 from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
 from views.post_tags_request import get_all_post_tags, get_single_post_tag
 from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
