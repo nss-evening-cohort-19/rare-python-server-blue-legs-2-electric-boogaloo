@@ -1,9 +1,15 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views.comment_requests import create_comment, delete_comment, get_all_comments, get_single_comment, update_comment, get_comments_by_author, get_comments_by_post
-from models import post
+from views import ( 
+                   create_comment,
+                   delete_comment,
+                   get_all_comments,
+                   get_single_comment,
+                   update_comment,
+                   get_comments_by_author,
+                   get_comments_by_post
+)
 from views.post_request import create_post, delete_post, get_all_posts, get_single_post, update_post
-from views.post_tags_request import get_all_post_tags, get_single_post_tag
 from views.subscription_request import create_subscription, delete_subscription, get_all_subscriptions, get_single_subscription, update_subscription
 from views.category_requests import create_category, delete_category, get_all_categories, get_single_category, update_category
 from views.user import create_user, login_user
@@ -99,25 +105,22 @@ class HandleRequests(BaseHTTPRequestHandler):
                 else:
                     response = f"{get_all_subscriptions()}"
             elif resource == 'tags':
-                pass
+                if id is not None:
+                    response = f"{get_single_tag(id)}"
+                else:
+                    response = f"{get_all_tags()}"
             elif resource == 'postags':
-                pass
+                if id is not None:
+                    response = f"{get_single_post_tag(id)}"
+                else:
+                    response = f"{get_all_post_tags()}"
         else:
             (resource, key, value) = parsed
             if key == 'author_id' and resource == 'comments':
                  response = get_comments_by_author(value)
             elif key == 'post_id' and resource == 'comments':
-                response = get_comments_by_post(value) 
-                 
-                if id is not None:
-                    response = f"{get_single_tag(id)}"
-                else:
-                    response = f"{get_all_tags()}"
-            elif resource == 'posttags':
-                if id is not None:
-                    response = f"{get_single_post_tag(id)}"
-                else:
-                    response = f"{get_all_post_tags()}"
+                response = get_comments_by_post(value)   
+                
  
         self.wfile.write(response.encode())
         
