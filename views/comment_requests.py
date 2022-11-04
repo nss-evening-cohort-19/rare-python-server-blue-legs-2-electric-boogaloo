@@ -112,12 +112,12 @@ def get_comments_by_author(author_id):
             c.author_id,
             c.post_id,
             c.content,
-            u.first_name,
-            u.last_name
+            u.*
         FROM comments c
         JOIN users u
             ON c.author_id = u.id
-        """)
+        WHERE c.id = ?
+        """, (author_id, ))
         
         comments = []
         
@@ -129,11 +129,37 @@ def get_comments_by_author(author_id):
            
            author = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'])
            
-           comment.author = author.__dict__
+           comment.author = author.first_last()
            
            comments.append(comment.__dict__)
            
     return json.dumps(comments)
-           
-           
-           
+
+def get_comments_by_post(post_id):
+    """gets comments by post_id"""
+    with sqlite3.connect('./db.sqlite3') as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+         
+        db_cursor.execute("""
+        SELECT
+            c.id,
+            c.id,
+            c.author_id,
+            c.post_id,
+            c.content
+        FROM comments c
+        WHERE c.post_id = ?
+        """, (post_id, ))
+
+        comments = []
+        
+        dataset = db_cursor.fetchall()
+        
+        for row in dataset:
+            
+            comment = Comment(row['id'], row['author_id'], row['post_id'], row['content'])
+        
+            comments.append(comment.__dict__)
+            
+    return json.dumps(comments)

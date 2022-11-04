@@ -5,3 +5,4 @@ class Comment:
         self.author_id = author_id
         self.post_id = post_id
         self.content = content
+        
