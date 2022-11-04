@@ -94,3 +94,29 @@ def delete_post_tag(id):
         DELETE FROM posttags
         WHERE id = ?                  
         """, (id, ))
+
+def get_post_tags_by_post_id(post_id):
+    """get post tag by post id"""
+    with sqlite3.connect("./db.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            id,      
+            post_id,
+            tag_id
+        FROM posttags
+        WHERE post_id = ?          
+                          """, (post_id, ))
+        
+        dataset = db_cursor.fetchall() 
+        
+        post_tags = []
+        
+        for data in dataset:
+            post_tag = PostTag(data['id'], data['post_id'], data['tag_id'])
+        
+            post_tags.append(post_tag.__dict__)
+        
+        return json.dumps(post_tags) 
