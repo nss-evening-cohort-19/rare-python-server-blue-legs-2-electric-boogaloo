@@ -7,6 +7,6 @@ from .subscription_request import get_all_subscriptions, get_single_subscription
 from .user import create_user, login_user
 from .reaction_request import create_reaction, get_all_reactions, delete_reaction, update_reaction, get_single_reaction
 from .post_reaction_request import create_post_reaction, get_all_post_reactions, get_single_post_reaction, update_post_reaction, delete_post_reaction, get_post_reactions_by_post_id
-                   
+from .user import get_single_user        
                    
                    

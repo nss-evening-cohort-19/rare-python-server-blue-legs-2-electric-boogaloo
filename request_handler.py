@@ -47,6 +47,7 @@ from views import (
                    delete_post_tag,
                    get_posts_by_category,
                    get_post_reactions_by_post_id,
+                   get_single_user,
                    get_posts_by_author_id
 )
 
@@ -146,6 +147,9 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_post_tag(id)}"
                 else:
                     response = f"{get_all_post_tags()}"
+            elif resource == 'users':
+                response = f'{get_single_user(id)}'
+                    
         else:
             (resource, key, value) = parsed
             if key == 'author_id' and resource == 'comments':
