@@ -131,13 +131,14 @@ WHERE r.id = 6
 --         JOIN users u
 --             ON c.author_id = u.id
 
--- SELECT                  
---             c.id,
---             c.author_id,
---             c.post_id,
---             c.content,
---             u.first_name,
---             u.last_name
---         FROM comments c
---         JOIN users u
---             ON c.author_id = u.id
+SELECT
+      c.id,
+      c.id,
+      c.author_id,
+      c.post_id,
+      c.content
+FROM comments c
+JOIN posts p
+ON p.id = c.post_id
+WHERE c.post_id = 1
+        
