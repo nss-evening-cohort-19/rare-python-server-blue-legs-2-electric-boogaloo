@@ -3,7 +3,9 @@
 import sqlite3
 import json
 from models import Post
-
+from .comment_requests import get_comments_by_post
+from .post_reaction_request import get_post_reactions_by_post_id
+from .post_tags_request import get_post_tags_by_post_id
 
 def create_post(new_post):
     """create a post"""
@@ -46,6 +48,10 @@ def get_single_post(id):
         data = db_cursor.fetchone()
         
         post = Post(data['id'], data['user_id'], data['category_id'], data['title'], data['publication_date'], data['image_url'], data['content'], data['approved'])
+        
+        post.comments = json.loads(get_comments_by_post(id))
+        post.post_reactions = json.loads(get_post_reactions_by_post_id(id))
+        post.post_tags = json.loads(get_post_tags_by_post_id(id))
         
         return json.dumps(post.__dict__)
     
