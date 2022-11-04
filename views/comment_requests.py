@@ -149,8 +149,6 @@ def get_comments_by_post(post_id):
             c.post_id,
             c.content
         FROM comments c
-        JOIN posts p
-            ON p.id = c.post_id
         WHERE c.post_id = ?
         """, (post_id, ))
 

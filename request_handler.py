@@ -44,7 +44,10 @@ from views import (
                    get_all_post_tags,
                    get_single_post_tag,
                    update_post_tag,
-                   delete_post_tag
+                   delete_post_tag,
+                   get_posts_by_category,
+                   get_post_reactions_by_post_id
+                   
 )
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -149,7 +152,11 @@ class HandleRequests(BaseHTTPRequestHandler):
                  response = get_comments_by_author(value)
             elif key == 'post_id' and resource == 'comments':
                 response = get_comments_by_post(value)   
-                
+            elif key == 'category_id' and resource == 'posts':
+                response = get_posts_by_category(value)
+            
+            elif key == "post_id" and resource == "postreactions":
+                response = get_post_reactions_by_post_id(value)
  
         self.wfile.write(response.encode())
         
