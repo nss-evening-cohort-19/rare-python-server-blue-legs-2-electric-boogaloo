@@ -9,6 +9,8 @@ from views.tags_request import get_all_tags, get_single_tag, create_tag, update_
 from views.reaction_request import create_reaction, get_all_reactions, get_single_reaction, delete_reaction, update_reaction
 from views.post_reaction_request import create_post_reaction, delete_post_reaction, update_post_reaction, get_all_post_reactions, get_single_post_reaction, get_post_reactions_by_post_id
 from views.post_tags_request import create_post_tag, get_all_post_tags, get_single_post_tag, update_post_tag, delete_post_tag
+from views.user import get_single_user
+
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
 
@@ -105,6 +107,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_post_tag(id)}"
                 else:
                     response = f"{get_all_post_tags()}"
+            elif resource == 'users':
+                response = f'{get_single_user(id)}'
                     
         else:
             (resource, key, value) = parsed
