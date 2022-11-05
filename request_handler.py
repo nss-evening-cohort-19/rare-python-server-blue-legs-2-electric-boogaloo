@@ -143,7 +143,7 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_tag(id)}"
                 else:
                     response = f"{get_all_tags()}"
-            elif resource == 'postags':
+            elif resource == 'posttags':
                 if id is not None:
                     response = f"{get_single_post_tag(id)}"
                 else:
@@ -166,7 +166,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             elif key == "author_id" and resource == "posts":
                 response = get_posts_by_author_id(value)
             
-            elif key == "post_id" and resource == "tags":
+            elif key == "post_id" and resource == "posttags":
                 response = get_post_tags_by_post_id(value)
  
         self.wfile.write(response.encode())
