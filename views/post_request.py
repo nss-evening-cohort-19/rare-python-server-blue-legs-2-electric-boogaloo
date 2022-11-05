@@ -3,6 +3,7 @@
 import sqlite3
 import json
 from models import Post
+from views.category_requests import get_single_category
 from .comment_requests import get_comments_by_post
 from .post_reaction_request import get_post_reactions_by_post_id
 from .post_tags_request import get_post_tags_by_post_id
@@ -95,6 +96,7 @@ def get_all_posts():
             post.comments = json.loads(get_comments_by_post(row['id']))
             post.post_reactions = json.loads(get_post_reactions_by_post_id(row['id']))
             post.post_tags = json.loads(get_post_tags_by_post_id(row['id']))
+            post.category = json.loads(get_single_category(row['category_id']))
             
             
             posts.append(post.__dict__)
