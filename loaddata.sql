@@ -141,4 +141,21 @@ FROM comments c
 JOIN posts p
 ON p.id = c.post_id
 WHERE c.post_id = 1
+
+
         
+SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved,
+            u.first_name,
+            u.last_name
+        FROM posts p
+        JOIN users u
+            ON p.user_id = u.id
+        WHERE p.id = 4
