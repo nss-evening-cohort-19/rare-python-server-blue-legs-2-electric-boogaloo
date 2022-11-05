@@ -93,11 +93,11 @@ INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.c
 
 
 INSERT INTO Subscriptions VALUES (null, 1, 1, "10/31/2022");
-INSERT INTO Posts VALUES (null, 1, 3, "Test Title 2", "10/33/2022", "https://res.cloudinary.com/twofiveclimb/image/upload/v1666979419/mad-app/e5sgpxaykaxqsls5kavg.jpg", "This is the second test.  Test Test Scary", True);
+INSERT INTO Posts VALUES (null, 2, 2, "This is the fourth post", "10/33/2022", "https://res.cloudinary.com/twofiveclimb/image/upload/v1666979419/mad-app/e5sgpxaykaxqsls5kavg.jpg", "This is the fourth test.  Test Test Scary", True);
 INSERT INTO Comments VALUES (null, 2, 1, "This is also delightful");
 INSERT INTO Reactions VALUES (null, "Mad", 'https://pngtree.com/so/mad');
 INSERT INTO PostReactions VALUES (null, 1, 1, 1);
-INSERT INTO Tags VALUES (null, "Python");
+INSERT INTO Tags VALUES (null, "Test Tag");
 INSERT INTO PostTags VALUES (null, 4, 1);
 INSERT INTO Categories VALUES (null, 'Music');
 INSERT INTO PostReactions VALUES (null, 1, 2, 2);
@@ -159,3 +159,19 @@ SELECT
         JOIN users u
             ON p.user_id = u.id
         WHERE p.id = 4
+
+        SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved
+        FROM Posts p
+        JOIN posttags pt
+            ON pt.post_id = p.id
+        JOIN tags t
+            ON t.id = pt.tag_id
+        WHERE t.id = 1
