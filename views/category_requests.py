@@ -54,7 +54,7 @@ def get_all_categories():
             c.id,
             c.label
         FROM categories c
-        ORDER BY c.label
+        ORDER BY LOWER(c.label)
         """)
         categories = []
 
