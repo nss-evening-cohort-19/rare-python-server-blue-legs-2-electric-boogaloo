@@ -222,19 +222,28 @@ def get_posts_by_author_id(author_id):
             p.publication_date,
             p.image_url,
             p.content,
-            p.approved
-        FROM Posts p
-        WHERE p.user_id = ?
-        """, (author_id, ))
-
+            p.approved,
+            u.first_name,
+            u.last_name
+        FROM posts p
+        JOIN users u
+            ON p.user_id = u.id
+        """)
+        
         posts = []
+
         dataset = db_cursor.fetchall()
-
+        
         for row in dataset:
-            post = Post(row['id'], row['user_id'], row['category_id'], row['title'],
-                        row['publication_date'], row['image_url'], row['content'], row['approved'])
-
+            post = Post(row['id'], row['user_id'], row['category_id'], row['title'], row['publication_date'], row['image_url'], row['content'], row['approved'])
+           
+            post.author = f"{row['first_name']} {row['last_name']}"
+            post.comments = json.loads(get_comments_by_post(row['id']))
+            post.post_reactions = json.loads(get_post_reactions_by_post_id(row['id']))
+            post.post_tags = json.loads(get_post_tags_by_post_id(row['id']))
             post.category = json.loads(get_single_category(row['category_id']))
+            
+            
             posts.append(post.__dict__)
 
     return json.dumps(posts)
