@@ -233,6 +233,8 @@ def get_posts_by_author_id(author_id):
         for row in dataset:
             post = Post(row['id'], row['user_id'], row['category_id'], row['title'],
                         row['publication_date'], row['image_url'], row['content'], row['approved'])
+
+            post.category = json.loads(get_single_category(row['category_id']))
             posts.append(post.__dict__)
 
     return json.dumps(posts)
