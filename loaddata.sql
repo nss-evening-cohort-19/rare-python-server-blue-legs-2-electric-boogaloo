@@ -103,3 +103,6 @@ INSERT INTO Categories VALUES (null, 'Music');
 INSERT INTO PostReactions VALUES (null, 1, 2, 2);
 INSERT INTO Reactions VALUES (null, "Sad", 'https://pngtree.com/so/mad');
 INSERT INTO PostReactions VALUES (null, 1, 3, 1);
+
+DELETE from users
+WHERE id = 3

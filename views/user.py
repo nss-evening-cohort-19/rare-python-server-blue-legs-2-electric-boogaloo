@@ -53,7 +53,7 @@ def create_user(user):
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-        Insert into Users (first_name, last_name, username, email, password, bio, created_on, active) values (?, ?, ?, ?, ?, ?, ?, 1)
+        Insert into Users (first_name, last_name, username, email, password, bio, profile_image_url, created_on, active) values (?, ?, ?, ?, ?, ?, ?, ?, 1)
         """, (
             user['first_name'],
             user['last_name'],
@@ -61,6 +61,7 @@ def create_user(user):
             user['email'],
             user['password'],
             user['bio'],
+            user['profile_image_url'],
             datetime.now()
         ))
 
@@ -85,9 +86,10 @@ def update_user(id, new_user):
                 email = ?,
                 password = ?,
                 bio = ?,
-                created_on = ?
+                created_on = ?,
+                profile_image_url = ?
         WHERE id = ?        
-        """, (new_user['first_name'], new_user['last_name'], new_user['username'], new_user['email'], new_user['password'], new_user['bio'], new_user['created_on'], id, ))
+        """, (new_user['first_name'], new_user['last_name'], new_user['username'], new_user['email'], new_user['password'], new_user['bio'], new_user['created_on'], new_user['profile_image_url'], id, ))
         
         rows_affected = db_cursor.rowcount
         

@@ -230,7 +230,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             success = update_tag(id, post_body)
         elif resource == 'posttags':
             success = update_post_tag(id, post_body)
-        elif resource == 'user':
+        elif resource == 'users':
             success = update_user(id, post_body)
 
         
