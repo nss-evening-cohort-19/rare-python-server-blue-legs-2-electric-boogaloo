@@ -222,8 +222,12 @@ def get_posts_by_author_id(author_id):
             p.publication_date,
             p.image_url,
             p.content,
-            p.approved
+            p.approved,
+            u.first_name,
+            u.last_name
         FROM Posts p
+        JOIN users u
+            ON p.user_id = u.id
         WHERE p.user_id = ?
         """, (author_id, ))
 
@@ -235,6 +239,7 @@ def get_posts_by_author_id(author_id):
                         row['publication_date'], row['image_url'], row['content'], row['approved'])
 
             post.category = json.loads(get_single_category(row['category_id']))
+            post.author = f"{row['first_name']} {row['last_name']}"
             posts.append(post.__dict__)
 
     return json.dumps(posts)
