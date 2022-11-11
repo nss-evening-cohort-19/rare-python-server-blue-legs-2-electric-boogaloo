@@ -240,6 +240,9 @@ def get_posts_by_author_id(author_id):
 
             post.category = json.loads(get_single_category(row['category_id']))
             post.author = f"{row['first_name']} {row['last_name']}"
+            post.comments = json.loads(get_comments_by_post(row['id']))
+            post.post_reactions = json.loads(get_post_reactions_by_post_id(row['id']))
+            post.post_tags = json.loads(get_post_tags_by_post_id(row['id']))
             posts.append(post.__dict__)
 
     return json.dumps(posts)
