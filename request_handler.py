@@ -49,7 +49,8 @@ from views import (
                    get_post_reactions_by_post_id,
                    get_single_user,
                    get_posts_by_author_id,
-                   get_post_tags_by_post_id
+                   get_post_tags_by_post_id,
+                   get_subscription_by_author_id
 )
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -168,6 +169,9 @@ class HandleRequests(BaseHTTPRequestHandler):
             
             elif key == "post_id" and resource == "posttags":
                 response = get_post_tags_by_post_id(value)
+                
+            elif key == "author_id" and resource == "subscriptions":
+                response = get_subscription_by_author_id(value)
  
         self.wfile.write(response.encode())
         
