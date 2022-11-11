@@ -93,7 +93,7 @@ INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.c
 
 
 INSERT INTO Subscriptions VALUES (null, 1, 1, "10/31/2022");
-INSERT INTO Posts VALUES (null, 2, 2, "This is the fourth post", "10/33/2022", "https://res.cloudinary.com/twofiveclimb/image/upload/v1666979419/mad-app/e5sgpxaykaxqsls5kavg.jpg", "This is the fourth test.  Test Test Scary", True);
+INSERT INTO Posts VALUES (null, 1, 3, "This is the fourth post", "10/33/2022", "https://res.cloudinary.com/twofiveclimb/image/upload/v1666979419/mad-app/e5sgpxaykaxqsls5kavg.jpg", "This is the fourth test.  Test Test Scary", True);
 INSERT INTO Comments VALUES (null, 2, 1, "This is also delightful");
 INSERT INTO Reactions VALUES (null, "Mad", 'https://pngtree.com/so/mad');
 INSERT INTO PostReactions VALUES (null, 1, 1, 1);
