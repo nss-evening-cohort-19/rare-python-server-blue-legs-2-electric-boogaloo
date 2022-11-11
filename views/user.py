@@ -70,6 +70,31 @@ def create_user(user):
             'token': id,
             'valid': True
         })
+        
+def update_user(id, new_user):
+    """Updates User"""
+    with sqlite3.connect('./db.sqlite3') as conn:
+        db_cursor = conn.cursor()
+        
+        db_cursor.execute("""
+        UPDATE Users
+            SET
+                first_name = ?,
+                last_name = ?,
+                username = ?,
+                email = ?,
+                password = ?,
+                bio = ?,
+                created_on = ?
+        WHERE id = ?        
+        """, (new_user['first_name'], new_user['last_name'], new_user['username'], new_user['email'], new_user['password'], new_user['bio'], new_user['created_on'], id, ))
+        
+        rows_affected = db_cursor.rowcount
+        
+    if  rows_affected == 0:
+        return False
+    else:
+        return True
 
 def get_single_user(id):
     """gets a single user"""

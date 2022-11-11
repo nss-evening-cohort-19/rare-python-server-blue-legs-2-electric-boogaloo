@@ -49,7 +49,8 @@ from views import (
                    get_post_reactions_by_post_id,
                    get_single_user,
                    get_posts_by_author_id,
-                   get_post_tags_by_post_id
+                   get_post_tags_by_post_id,
+                   update_user,
 )
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -229,6 +230,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             success = update_tag(id, post_body)
         elif resource == 'posttags':
             success = update_post_tag(id, post_body)
+        elif resource == 'user':
+            success = update_user(id, post_body)
 
         
         if success:
