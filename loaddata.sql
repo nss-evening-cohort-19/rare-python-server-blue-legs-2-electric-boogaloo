@@ -103,4 +103,7 @@ INSERT INTO Categories VALUES (null, 'Music');
 INSERT INTO PostReactions VALUES (null, 1, 2, 2);
 INSERT INTO Reactions VALUES (null, "Sad", 'https://pngtree.com/so/mad');
 INSERT INTO PostReactions VALUES (null, 1, 3, 1);
+
+DELETE from users
+WHERE id = 3
 INSERT INTO Users VALUES(null, "Phillip", "Jeffries", "pj@gmail.com", "Love to listen to Bowie", "phillipjeffries", "pw", NULL, "2022-11-11 19:00:03.334587", True)

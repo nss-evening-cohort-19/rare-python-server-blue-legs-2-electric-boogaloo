@@ -48,12 +48,13 @@ def create_user(user):
     Returns:
         json string: Contains the token of the newly created user
     """
+    now = datetime.now()
     with sqlite3.connect('./db.sqlite3') as conn:
         conn.row_factory = sqlite3.Row
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-        Insert into Users (first_name, last_name, username, email, password, bio, created_on, active) values (?, ?, ?, ?, ?, ?, ?, 1)
+        Insert into Users (first_name, last_name, username, email, password, bio, profile_image_url, created_on, active) values (?, ?, ?, ?, ?, ?, ?, ?, 1)
         """, (
             user['first_name'],
             user['last_name'],
@@ -61,7 +62,8 @@ def create_user(user):
             user['email'],
             user['password'],
             user['bio'],
-            datetime.now()
+            user['profile_image_url'],
+            now.strftime("%x")
         ))
 
         id = db_cursor.lastrowid
@@ -70,6 +72,32 @@ def create_user(user):
             'token': id,
             'valid': True
         })
+        
+def update_user(id, new_user):
+    """Updates User"""
+    with sqlite3.connect('./db.sqlite3') as conn:
+        db_cursor = conn.cursor()
+        
+        db_cursor.execute("""
+        UPDATE Users
+            SET
+                first_name = ?,
+                last_name = ?,
+                username = ?,
+                email = ?,
+                password = ?,
+                bio = ?,
+                created_on = ?,
+                profile_image_url = ?
+        WHERE id = ?        
+        """, (new_user['first_name'], new_user['last_name'], new_user['username'], new_user['email'], new_user['password'], new_user['bio'], new_user['created_on'], new_user['profile_image_url'], id, ))
+        
+        rows_affected = db_cursor.rowcount
+        
+    if  rows_affected == 0:
+        return False
+    else:
+        return True
 
 def get_single_user(id):
     """gets a single user"""
@@ -98,3 +126,12 @@ def get_single_user(id):
         user = User(data['id'], data['first_name'], data['last_name'], data['email'], data['bio'], data['username'],  data['password'], data['profile_image_url'], data['created_on'], data['active'])
         
         return json.dumps(user.__dict__)
+    
+def delete_user(id):
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+        
+        db_cursor.execute("""
+        DELETE FROM users
+        WHERE id = ?
+        """, (id, ))
