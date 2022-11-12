@@ -51,6 +51,7 @@ from views import (
                    get_posts_by_author_id,
                    get_post_tags_by_post_id,
                    update_user,
+                   delete_user,
 )
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -263,6 +264,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             delete_tag(id)
         elif resource == 'posttags':
             delete_post_tag(id)
+        elif resource == 'users':
+            delete_user(id)
             
         self.wfile.write("".encode())
 
