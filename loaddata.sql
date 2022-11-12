@@ -92,7 +92,7 @@ INSERT INTO PostTags ('post_id', 'tag_id') VALUES (7, 7);
 INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
 
 
-INSERT INTO Subscriptions VALUES (null, 1, 1, "10/31/2022");
+INSERT INTO Subscriptions VALUES (null, 3, 2, "11/11/2022");
 INSERT INTO Posts VALUES (null, 1, 3, "This is the fourth post", "10/33/2022", "https://res.cloudinary.com/twofiveclimb/image/upload/v1666979419/mad-app/e5sgpxaykaxqsls5kavg.jpg", "This is the fourth test.  Test Test Scary", True);
 INSERT INTO Comments VALUES (null, 2, 1, "This is also delightful");
 INSERT INTO Reactions VALUES (null, "Mad", 'https://pngtree.com/so/mad');
@@ -106,3 +106,4 @@ INSERT INTO PostReactions VALUES (null, 1, 3, 1);
 
 DELETE from users
 WHERE id = 3
+INSERT INTO Users VALUES(null, "Phillip", "Jeffries", "pj@gmail.com", "Love to listen to Bowie", "phillipjeffries", "pw", NULL, "2022-11-11 19:00:03.334587", True)

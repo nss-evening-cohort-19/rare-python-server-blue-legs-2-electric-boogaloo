@@ -103,20 +103,25 @@ def get_post_tags_by_post_id(post_id):
 
         db_cursor.execute("""
         SELECT
-            id,      
-            post_id,
-            tag_id
-        FROM posttags
+            pt.id,      
+            pt.post_id,
+            pt.tag_id,
+            t.label
+        FROM posttags pt
+        JOIN tags t
+            ON pt.tag_id = t.id
         WHERE post_id = ?          
                           """, (post_id, ))
         
-        dataset = db_cursor.fetchall() 
+        dataset = db_cursor.fetchall()
         
         post_tags = []
         
-        for data in dataset:
-            post_tag = PostTag(data['id'], data['post_id'], data['tag_id'])
+        for row in dataset:
+            post_tag = PostTag(row['id'], row['post_id'], row['tag_id'])
+            
+            post_tag.label = f"{row['label']}"
         
             post_tags.append(post_tag.__dict__)
         
-        return json.dumps(post_tags) 
+        return json.dumps(post_tags)
